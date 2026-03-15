@@ -1,16 +1,15 @@
-# @fastify/http-proxy
+# fastify-http-proxy
 
 Proxy HTTP requests for Fastify.
 
-[![CI](https://github.com/fastify/fastify-http-proxy/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/fastify/fastify-http-proxy/actions/workflows/ci.yml)
-[![NPM version](https://img.shields.io/npm/v/@fastify/http-proxy.svg?style=flat)](https://www.npmjs.com/package/@fastify/http-proxy)
+[![CI](https://github.com/Rifatpomil/fastify-http-proxy/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Rifatpomil/fastify-http-proxy/actions/workflows/ci.yml)
 [![neostandard javascript style](https://img.shields.io/badge/code_style-neostandard-brightgreen?style=flat)](https://github.com/neostandard/neostandard)
 
 Proxy your HTTP requests to another server, with hooks.
 This [`fastify`](https://fastify.dev) plugin forwards all requests
 received with a given prefix (or none) to an upstream. All Fastify hooks are still applied.
 
-`@fastify/http-proxy` is built on top of
+This plugin is built on top of
 [`@fastify/reply-from`](https://npm.im/@fastify/reply-from), which enables single route proxying.
 
 This plugin can be used in a variety of circumstances, for example, if you have to proxy an internal domain to an external domain (useful to avoid CORS problems) or to implement your own API gateway for a microservices architecture.
@@ -18,12 +17,12 @@ This plugin can be used in a variety of circumstances, for example, if you have 
 ## Requirements
 
 Fastify 5.x.
-See [@fastify/http-proxy v9.x](https://github.com/fastify/fastify-http-proxy/tree/v9.x) for Fastify 4.x compatibility.
+See [fastify-http-proxy v9.x](https://github.com/fastify/fastify-http-proxy/tree/v9.x) for Fastify 4.x compatibility.
 
 ## Install
 
 ```
-npm i @fastify/http-proxy fastify
+npm i fastify-http-proxy fastify
 ```
 
 ## Example
@@ -32,7 +31,7 @@ npm i @fastify/http-proxy fastify
 const Fastify = require('fastify');
 const server = Fastify();
 
-server.register(require('@fastify/http-proxy'), {
+server.register(require('fastify-http-proxy'), {
   upstream: 'http://my-api.example.com',
   prefix: '/api', // optional
   http2: false, // optional
@@ -48,7 +47,7 @@ If you want to have different proxies on different prefixes you can register mul
 ```js
 const Fastify = require('fastify');
 const server = Fastify();
-const proxy = require('@fastify/http-proxy');
+const proxy = require('fastify-http-proxy');
 
 // /api/x will be proxied to http://my-api.example.com/x
 server.register(proxy, {
@@ -91,11 +90,11 @@ For other examples, see [`example.js`](examples/example.js).
 
 ## Request tracking
 
-`@fastify/http-proxy` can track and pipe the `request-id` across the upstreams. Using the [`hyperid`](https://www.npmjs.com/package/hyperid) module and the [`@fastify/reply-from`](https://github.com/fastify/fastify-reply-from) built-in options a fairly simple example would look like this:
+`fastify-http-proxy` can track and pipe the `request-id` across the upstreams. Using the [`hyperid`](https://www.npmjs.com/package/hyperid) module and the [`@fastify/reply-from`](https://github.com/fastify/fastify-reply-from) built-in options a fairly simple example would look like this:
 
 ```js
 const Fastify = require('fastify');
-const proxy = require('@fastify/http-proxy');
+const proxy = require('fastify-http-proxy');
 const hyperid = require('hyperid');
 
 const server = Fastify();
@@ -184,7 +183,7 @@ Object with [reply options](https://github.com/fastify/fastify-reply-from#replyf
 
 ### `internalRewriteLocationHeader`
 
-By default, `@fastify/http-proxy` will rewrite the `location` header when a request redirects to a relative path.
+By default, `fastify-http-proxy` will rewrite the `location` header when a request redirects to a relative path.
 In other words, the [prefix](https://github.com/fastify/fastify-http-proxy#prefix) will be added to the relative path.
 
 If you want to preserve the original path, this option will disable this internal operation. Default: `true`.
@@ -287,7 +286,7 @@ The `context` object is passed to all hooks and contains the `log` property.
 
 ### `reply.fromParameters(url[, params[, prefix]])`
 
-It can be used to get the final URL and options that `@fastify/http-proxy` would have used to invoke `reply.from`.
+It can be used to get the final URL and options that `fastify-http-proxy` would have used to invoke `reply.from`.
 
 A typical use is to override the request URL:
 
@@ -311,7 +310,7 @@ The following benchmarks were generated on a dedicated server with an Intel(R) C
 | :-------------------- | :------ |
 | `express-http-proxy`  | 2557    |
 | `http-proxy`          | 9519    |
-| `@fastify/http-proxy` | 15919   |
+| `fastify-http-proxy` | 15919   |
 
 The results were gathered on the second run of `autocannon -c 100 -d 5
 URL`.

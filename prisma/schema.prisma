@@ -37,7 +37,7 @@ model ApiKey {
   
   // Features
   semanticCache  Boolean  @default(true)
-  fallbackModel  String?  // e.g., "claude-3-haiku-20240307" if GPT-4 fails
+  fallbackModel  String?  // Fallback model name if primary model fails
   
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt

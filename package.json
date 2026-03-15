@@ -1,7 +1,7 @@
 {
-  "name": "@fastify/http-proxy",
+  "name": "fastify-http-proxy",
   "version": "11.4.1",
-  "description": "proxy http requests, for Fastify",
+  "description": "Proxy HTTP requests for Fastify. Fastify plugin for reverse proxying with hooks.",
   "main": "index.js",
   "type": "commonjs",
   "types": "types/index.d.ts",
@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rifatpomil/fastify-http-proxy-notes-and-patches.git"
+    "url": "git+https://github.com/Rifatpomil/fastify-http-proxy.git"
   },
   "keywords": [
     "fastify",
@@ -24,9 +24,9 @@
   "author": "Md Rifat Alam Pomil <rifatpomil@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Rifatpomil/fastify-http-proxy-notes-and-patches/issues"
+    "url": "https://github.com/Rifatpomil/fastify-http-proxy/issues"
   },
-  "homepage": "https://github.com/Rifatpomil/fastify-http-proxy-notes-and-patches#readme",
+  "homepage": "https://github.com/Rifatpomil/fastify-http-proxy#readme",
   "devDependencies": {
     "@fastify/websocket": "^11.2.0",
     "@prisma/client": "^5.22.0",
