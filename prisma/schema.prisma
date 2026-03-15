@@ -1,0 +1,78 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  apiKeys   ApiKey[]
+}
+
+model ApiKey {
+  id             String   @id @default(uuid())
+  key            String   @unique // The actual API key (hashed in reality, but just storing it for this demo)
+  name           String   // e.g "Production App"
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+  
+  // Rate limits per key
+  tpmLimit       Int      @default(10000) // Tokens per minute
+  rpmLimit       Int      @default(100)   // Requests per minute
+  priorityQueue  Boolean  @default(false)
+  
+  // Features
+  semanticCache  Boolean  @default(true)
+  fallbackModel  String?  // e.g., "claude-3-haiku-20240307" if GPT-4 fails
+  
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  logs           RequestLog[]
+}
+
+model RequestLog {
+  id             String   @id @default(uuid())
+  apiKeyId       String
+  apiKey         ApiKey   @relation(fields: [apiKeyId], references: [id])
+  
+  promptTokens   Int
+  completionTokens Int?
+  totalTokens    Int
+  
+  model          String   // e.g., "gpt-4o"
+  latencyMs      Int      // Time to complete request
+  cacheHit       Boolean  @default(false)
+  
+  cost           Float?   // Estimated cost in USD
+  
+  createdAt      DateTime @default(now())
+}
+
+// For semantic caching using pgvector.
+// We execute raw SQL to enable the extension in Postgres.
+model PromptCache {
+  id        String   @id @default(uuid())
+  prompt    String   // The original prompt text
+  response  String   // The cached LLM response
+  
+  // We will manage the embedding manually via raw queries since Prisma 
+  // natively requires additional setup for pgvector, but we map the table here.
+  // embedding Unsupported("vector(1536)")?
+  
+  createdAt DateTime @default(now())
+}
