@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database configured with pgvector for Semantic Caching
+  postgres:
+    image: pgvector/pgvector:16 # Using official generic pgvector compatible image
+    container_name: queueflow-db
+    environment:
+      POSTGRES_USER: queueflow
+      POSTGRES_PASSWORD: queueflow_password
+      POSTGRES_DB: queueflow_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # Redis for Rate Limiting and Priority Queuing
+  redis:
+    image: redis:alpine
+    container_name: queueflow-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
