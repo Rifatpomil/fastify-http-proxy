@@ -1,0 +1,69 @@
+{
+  "name": "@fastify/http-proxy",
+  "version": "11.4.1",
+  "description": "proxy http requests, for Fastify",
+  "main": "index.js",
+  "type": "commonjs",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "lint:typescript": "npm run lint:fix - --parser @typescript-eslint/parser --plugin typescript \"test/types/*.ts\"",
+    "test": "npm run lint && borp -C --check-coverage && npm run typescript",
+    "typescript": "tsd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rifatpomil/fastify-http-proxy-notes-and-patches.git"
+  },
+  "keywords": [
+    "fastify",
+    "http",
+    "proxy"
+  ],
+  "author": "Md Rifat Alam Pomil <rifatpomil@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Rifatpomil/fastify-http-proxy-notes-and-patches/issues"
+  },
+  "homepage": "https://github.com/Rifatpomil/fastify-http-proxy-notes-and-patches#readme",
+  "devDependencies": {
+    "@fastify/websocket": "^11.2.0",
+    "@prisma/client": "^5.22.0",
+    "@types/node": "^25.0.3",
+    "@types/ws": "^8.18.1",
+    "borp": "^1.0.0",
+    "eslint": "^9.39.1",
+    "express": "^5.1.0",
+    "express-http-proxy": "^2.1.2",
+    "fast-proxy": "^2.2.0",
+    "fastify": "^5.6.2",
+    "http-errors": "^2.0.0",
+    "http-proxy": "^1.18.1",
+    "neostandard": "^0.12.2",
+    "pino": "^10.1.0",
+    "pino-test": "^1.1.0",
+    "prisma": "^5.22.0",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "tsd": "^0.33.0",
+    "typescript": "~5.9.3",
+    "why-is-node-running": "^3.2.2"
+  },
+  "dependencies": {
+    "@fastify/reply-from": "^12.5.0",
+    "bullmq": "^5.70.2",
+    "fast-querystring": "^1.1.2",
+    "fastify-plugin": "^5.1.0",
+    "ioredis": "^5.10.0",
+    "prom-client": "^15.1.3",
+    "tiktoken": "^1.0.22",
+    "ws": "^8.18.3"
+  },
+  "tsd": {
+    "directory": "test/types"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
